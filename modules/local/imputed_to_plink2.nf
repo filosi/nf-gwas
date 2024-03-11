@@ -1,5 +1,5 @@
 process IMPUTED_TO_PLINK2 {
-
+    // TODO: For gene testing we should filter out common variant. To do this a parameters has been added: gene_maxmaf
     input:
     path imputed_vcf_file
     // TODO: Replace -1 with range 
@@ -8,6 +8,8 @@ process IMPUTED_TO_PLINK2 {
 
     script:
     def delimiter = params.vcf_conversion_split_id  ? "--id-delim" : '--double-id'
+    def maxmaf = params.gene_maxmaf ? "--max-maf " + params.gene_maxmaf : ''
+
     """
     plink2 \
         --vcf $imputed_vcf_file dosage=DS \
@@ -15,6 +17,7 @@ process IMPUTED_TO_PLINK2 {
         $delimiter \
         --out ${imputed_vcf_file.baseName} \
         --threads ${task.cpus} \
-        --memory ${task.memory.toMega()}
+        --memory ${task.memory.toMega()} \
+        $maxmaf
     """
 }

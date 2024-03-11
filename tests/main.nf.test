@@ -98,6 +98,7 @@ test("Should execute gene-based test pipeline") {
             regenie_gene_build_mask       = 'max'
             regenie_write_bed_masks       = true
             rsids_filename                = "$projectDir/tests/input/pipeline/rsids.tsv.gz"
+            gene_maxmaf                   = 0.1
         }
     }
 

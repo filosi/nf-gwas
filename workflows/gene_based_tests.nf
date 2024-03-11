@@ -33,6 +33,8 @@ workflow GENE_BASED_TESTS {
     covariates_file_validated  = INPUT_VALIDATION.out.covariates_file_validated
     phenotypes_file_validated = INPUT_VALIDATION.out.phenotypes_file_validated
     phenotypes_file_validated_log = INPUT_VALIDATION.out.phenotypes_file_validated_log
+    // TODO: Add documentation and default value for this parameter
+    // max_maf = val(params.gene_maxmaf)
 
     if (genotypes_association_format == "vcf"){
 
@@ -72,7 +74,7 @@ workflow GENE_BASED_TESTS {
         genotyped_filtered_id_ch = QUALITY_CONTROL.out.genotyped_filtered_id_ch
         
         if(params.prune_enabled) {
-
+            // TODO: Remove pruning which does not make any senso for gene level analysis
             PRUNING(QUALITY_CONTROL.out.genotyped_filtered_files_ch)
             genotyped_final_ch = PRUNING.out.genotyped_final_ch
 

@@ -73,7 +73,7 @@ class WorkflowMain {
     }
 
     if (params.regenie_run_gene_based_tests) {
-
+        // TODO: Add warning if pruning params provided, or throw an error
         if (params.regenie_write_bed_masks && params.regenie_gene_build_mask == 'sum'){
             exit 1, "Invalid config file. The 'write-mask' option does not work when building masks with 'sum'."
         }
@@ -87,6 +87,12 @@ class WorkflowMain {
         if (genotypes_association_format != 'vcf' && genotypes_association_format != "bgen"){
             exit 1, "File format " + genotypes_association_format + " currently not supported for gene-based tests. Please use 'vcf' or 'bgen' input instead. "
         }
+
+        // Check for parameter gene_maxmaf
+        if (params.gene_maxmaf == null){
+            exit 1, "Need to provide a max-maf for gene-level testing."
+        } else {}
+            println params.gene_maxmaf
         } else {
             //Check if tests exists
             if (params.regenie_test != 'additive' && params.regenie_test != 'recessive' && params.regenie_test != 'dominant'){
